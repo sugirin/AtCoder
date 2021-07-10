@@ -18,47 +18,25 @@ N A B
 
 N, A, B = map(int, input().split())
 
-def correct_solver(N, A, B):
-    total = 0
+total = 0
 
-    for i in range(N+1):
-        digits_total = 0
-        for digit in str(i):
-            digits_total += int(digit)
-        if A <= digits_total and digits_total <= B:
-            total += i
-
-    return total
-
-def wrong_solver(N, A, B):
-    total = 0
-    
-    for h in range(2):
-        if h+9+9+9+9 < A or h > B or (10000*h) > N:
+for h in range(10):
+    if h+9+9+9+9 < A or h > B or (10000*h) > N:
+        continue
+    for i in range(10):
+        if h+i+9+9+9 < A or h+i > B or (10000*h + 1000*i) > N:
             continue
-        for i in range(10):
-            if h+i+9+9+9 < A or h+i > B or (10000*h + 1000*i) > N:
+        for j in range(10):
+            if h+i+j+9+9 < A or h+i+j > B or (10000*h + 1000*i + 100*j) > N:
                 continue
-            for j in range(10):
-                if h+i+j+9+9 < A or h+i+j > B or (10000*h + 1000*i + 100*j) > N:
+            for k in range(10):
+                if h+i+j+k+9 < A or h+i+j+k > B or (10000*h + 1000*i + 100*j + 10*k) > N:
                     continue
-                for k in range(10):
-                    if h+i+j+k+9 < A or h+i+j+k > B or (10000*h + 1000*i + 100*j + 10*k) > N:
+                for l in range(10):
+                    if h+i+j+k+l < A or h+i+j+k+l > B or (10000*h + 1000*i + 100*j + 10*k + l) > N:
                         continue
-                    for l in range(10):
-                        if h+i+j+k+l < A or h+i+j+k+l > B or (10000*h + 1000*i + 100*j + 10*k + l) > N:
-                            continue
-                        total += 1000*i + 100*j + 10*k + l
-    
-    return total
+                    total += 10000*h + 1000*i + 100*j + 10*k + l
 
-N, A, B = 1, 1, 36
+print(total)
 
-import random
-
-for N in range(10001):
-    for A in range(37):
-        for B in range(A, 37):
-            if correct_solver(N, A, B) != wrong_solver(N, A, B):
-                print(N, A, B, correct_solver(N, A, B), wrong_solver(N, A, B))
 
