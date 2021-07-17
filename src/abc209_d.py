@@ -45,26 +45,23 @@ for _ in range(N-1):
 for _ in range(Q):
     queries.append(tuple(map(int, input().split())))
 
-def distance(c, d):
-    ans = 1
-    start_points = [c]
-    history = [c]
-    while True:
-        new_start_points = []
-        for s in start_points:
-            if d in roads[s]:
-                return ans
-            for dest in roads[s]:
-                if dest in history:
-                    continue
-                history.append(dest)
-                new_start_points.append(dest)
-        start_points = new_start_points
-        ans += 1
+binary_map = [0 for _ in range(N+1)]
+visited = [False for _ in range(N+1)]
+visited[1] = True
+stack = [1]
+
+while len(stack)>0:
+    begin = stack.pop()
+    for end in roads[begin]:
+        if visited[end]:
+            continue
+        visited[end] = True
+        binary_map[end] = binary_map[begin] ^ 1
+        stack.append(end)
 
 
-for query in queries:
-    if distance(query[0], query[1])%2 == 0:
+for c, d in queries:
+    if binary_map[c] == binary_map[d]:
         print("Town")
     else:
         print("Road")
