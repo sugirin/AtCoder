@@ -1,24 +1,63 @@
 """
-
+https://atcoder.jp/contests/abc210/tasks/abc210_d
 """
 H, W, rail_cost = map(int, input().split())
 station_costs = [list(map(int, input().split())) for _ in range(H)]
 
-min_station_cost = min([c for row in station_costs for c in row])
-
-station_points = []
+dp = [[0 for w in range(W)] for h in range(H)]
 for h in range(H):
     for w in range(W):
-        if station_costs[h][w] == min_station_cost:
-            station_points.append((h,w))
+        if h==0 and w==0:
+            dp[h][w] = station_costs[h][w]
+        elif h==0:
+            dp[h][w] = min(dp[h][w-1] + rail_cost, station_costs[h][w])
+        elif w==0:
+            dp[h][w] = min(dp[h-1][w] + rail_cost, station_costs[h][w])
+        else:
+            from_up = dp[h-1][w] + rail_cost
+            from_left = dp[h][w-1] + rail_cost
+            dp[h][w] = min(from_up, from_left, station_costs[h][w])
 
-min_actual_cost = 10**10
-for h,w in station_points:
-    actual_costs = [[0 for __ in range(W)] for _ in range(H)]
-    for i in range(H):
-        for j in range(W):
-            actual_costs[i][j] = station_costs[i][j] + rail_cost*(abs(h-i)+abs(w-j)) + min_station_cost
-    actual_costs[h][w] = 10**10
-    min_actual_cost = min(min_actual_cost, *[c for row in actual_costs for c in row])
+X = [[0 for w in range(W)] for h in range(H)]
+for h in range(H):
+    for w in range(W):
+        if h==0 and w==0:
+            X[h][w] = 10**10
+        elif h==0:
+            X[h][w] = dp[h][w-1] + rail_cost + station_costs[h][w]
+        elif w==0:
+            X[h][w] = dp[h-1][w] + rail_cost + station_costs[h][w]
+        else:
+            X[h][w] = min(dp[h-1][w], dp[h][w-1]) + rail_cost + station_costs[h][w]
 
-print(min_actual_cost)
+ans = min([x for _ in X for x in _])
+
+dp = [[0 for w in range(W)] for h in range(H)]
+for h in range(H):
+    for w in reversed(range(W)):
+        if h==0 and w==W-1:
+            dp[h][w] = station_costs[h][w]
+        elif h==0:
+            dp[h][w] = min(dp[h][w+1] + rail_cost, station_costs[h][w])
+        elif w==W-1:
+            dp[h][w] = min(dp[h-1][w] + rail_cost, station_costs[h][w])
+        else:
+            from_up = dp[h-1][w] + rail_cost
+            from_right = dp[h][w+1] + rail_cost
+            dp[h][w] = min(from_up, from_right, station_costs[h][w])
+
+X = [[0 for w in range(W)] for h in range(H)]
+for h in range(H):
+    for w in reversed(range(W)):
+        if h==0 and w==W-1:
+            X[h][w] = 10**10
+        elif h==0:
+            X[h][w] = dp[h][w+1] + rail_cost + station_costs[h][w]
+        elif w==W-1:
+            X[h][w] = dp[h-1][w] + rail_cost + station_costs[h][w]
+        else:
+            X[h][w] = min(dp[h-1][w], dp[h][w+1]) + rail_cost + station_costs[h][w]
+
+ans = min(ans, min([x for _ in X for x in _]))
+
+print(ans)
