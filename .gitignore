@@ -149,4 +149,4 @@ input.txt
 Pipfile
 Pipfile.lock
 .vscode/*
-./test
+test/*
