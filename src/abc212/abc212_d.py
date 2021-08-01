@@ -1,26 +1,19 @@
 """
 https://atcoder.jp/contests/abc212/tasks/abc212_d
 """
-from collections import defaultdict as ddict
+import heapq
 Q = int(input())
 box = []
-xappend = box.append
-bias = []
-bappend = bias.append
+heapq.heapify(box)
+bias = 0
 for _ in range(Q):
     query = input()
     if query[0]=='1':
         q, x = map(int, query.split())
-        xappend(x)
+        heapq.heappush(box, x - bias)
     elif query[0]=='2':
         q, x = map(int, query.split())
-        bappend((len(box),x))
+        bias += x
     else: # query[0]=='3'
-        for i, b in reversed(bias):
-            for j in range(i):
-                box[j] += b
-        bias = []
-        bappend = bias.append
-        idx = box.index(min(box))
-        print(box[idx])
-        box[idx] = 10**10
+        x = heapq.heappop(box)
+        print(x+bias)
