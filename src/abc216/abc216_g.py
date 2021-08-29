@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc216/tasks/abc216_g
+"""
 
 import math
 from typing import List, Tuple

@@ -1,9 +1,37 @@
+"""
+https://atcoder.jp/contests/abc216/tasks/abc216_d
+"""
 
 import math
 from typing import List, Tuple
+from collections import deque
 
 def main():
-    pass
+    N, M = map(int, input().split())
+    tubes = {}
+    for i in range(M):
+        _ = input()
+        tubes[i] = list(map(int, input().split()))[::-1]
+    while len(tubes)>0:
+        tops = {}
+        END = True
+        for i, balls in tubes.items():
+            top = balls[-1]
+            if top in tops:
+                j = tops.pop(top)
+                tubes[i].pop()
+                tubes[j].pop()
+                END = False
+            else:
+                tops[top] = i
+        tubes = {i: tube for i, tube in tubes.items() if len(tube)>0}
+        if END:
+            break
+    if END:
+        print('No')
+    else:
+        print('Yes')
+
 
 
 # =======================================================

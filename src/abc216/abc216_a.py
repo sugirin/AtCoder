@@ -1,9 +1,19 @@
+"""
+https://atcoder.jp/contests/abc216/tasks/abc216_a
+"""
 
 import math
 from typing import List, Tuple
 
 def main():
-    pass
+    X, Y = map(int, input().split('.'))
+    if Y <= 2:
+        print(f'{X}-')
+    elif Y >= 7:
+        print(f'{X}+')
+    else:
+        print(X)
+
 
 
 # =======================================================

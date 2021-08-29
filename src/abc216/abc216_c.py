@@ -1,9 +1,23 @@
+"""
+https://atcoder.jp/contests/abc216/tasks/abc216_c
+"""
 
 import math
 from typing import List, Tuple
 
 def main():
-    pass
+    N = int(input())
+    magic = []
+    while N>1:
+        if N%2 == 0:
+            magic.append('B')
+            N //= 2
+        else:
+            magic.append('A')
+            N -= 1
+    magic.append('A')
+    print(''.join(magic[::-1]))
+
 
 
 # =======================================================

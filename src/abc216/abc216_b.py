@@ -1,9 +1,20 @@
+"""
+https://atcoder.jp/contests/abc216/tasks/abc216_b
+"""
 
 import math
 from typing import List, Tuple
 
 def main():
-    pass
+    N = int(input())
+    name_list = []
+    for i in range(N):
+        name_list.append(input())
+    name_set = set(name_list)
+    if len(name_set) == len(name_list):
+        print('No')
+    else:
+        print('Yes')
 
 
 # =======================================================
