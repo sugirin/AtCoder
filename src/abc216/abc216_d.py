@@ -12,26 +12,35 @@ def main():
     for i in range(M):
         _ = input()
         tubes[i] = list(map(int, input().split()))[::-1]
-    while len(tubes)>0:
-        tops = {}
-        END = True
-        for i, balls in tubes.items():
-            top = balls[-1]
-            if top in tops:
-                j = tops.pop(top)
-                tubes[i].pop()
-                tubes[j].pop()
-                END = False
-            else:
-                tops[top] = i
-        tubes = {i: tube for i, tube in tubes.items() if len(tube)>0}
-        if END:
-            break
-    if END:
-        print('No')
-    else:
-        print('Yes')
+    color_top_cnt = [[] for _ in range(N+1)]
+    queue = []
+    for i,balls in tubes.items():
+        c = balls[-1]
+        color_top_cnt[c].append(i)
+        if len(color_top_cnt[c]) == 2:
+            queue.append(color_top_cnt[c])
+    while len(queue)>0:
+        i, j = queue.pop()
 
+        tubes[i].pop()
+        if len(tubes[i])>0:
+            c = tubes[i][-1]
+            color_top_cnt[c].append(i)
+            if len(color_top_cnt[c]) == 2:
+                queue.append(color_top_cnt[c])
+
+        tubes[j].pop()
+        if len(tubes[j])>0:
+            c = tubes[j][-1]
+            color_top_cnt[c].append(j)
+            if len(color_top_cnt[c]) == 2:
+                queue.append(color_top_cnt[c])
+
+    for _, tube in tubes.items():
+        if len(tube)>0:
+            print('No')
+            return
+    print('Yes')
 
 
 # =======================================================
