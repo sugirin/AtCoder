@@ -3,6 +3,8 @@ https://atcoder.jp/contests/abc217/tasks/abc217_e
 """
 
 import math
+import heapq
+from collections import deque
 from typing import List, Tuple
 
 def main():
@@ -11,18 +13,23 @@ def main():
     # S = input()
     # T = list(map(int, input().split()))
     l = []
-    lappend = l.append
-    out = []
-    oappend = out.append
+    heapq.heapify(l)
+    r = deque([])
     for _ in range(Q):
         q = input()
         if q[0] == '1':
-            lappend(int(q.split()[1]))
+            x = int(q.split()[1])
+            r.append(x)
         elif q[0] == '2':
-            oappend(l.pop(0))
+            if l:
+                x = heapq.heappop(l)
+            else:
+                x = r.popleft()
+            print(x)
         else:
-            l.sort()
-    print('\n'.join(map(str,out)))
+            for x in r:
+                heapq.heappush(l, x)
+            r = deque([])
 
 # =======================================================
 #                       Utilities
