@@ -1,16 +1,22 @@
+"""
+https://atcoder.jp/contests/abc218/tasks/abc218_a
+"""
 
 import math
 import bisect
 from typing import List, Tuple
 
 def main():
-    pass
-    # N = int(input())
+    N = int(input())
     # N, M = map(int, input().split())
-    # S = input()
+    S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
     # queries = [map(int,input().split()) for _ in range(N)]
+    if S[N-1]=='o':
+        print('Yes')
+    else:
+        print('No')
 
 
 # =======================================================
@@ -85,7 +91,6 @@ def factorization(x: int) -> List[Tuple[int, int]]:
 
 class BIT:
     """Binary Indexing Tree
-    OrderBITクラスから使われることを想定しているので、これを直接使うことは少ない
     """
 
     def __init__(self,len_A):
@@ -124,18 +129,10 @@ class BIT:
             k //= 2
         return x
 
+
 class OrderBIT:
-    """順序付き集合
-    最初に、集合の元の全候補のリスト(all_values)を与えてこのクラスのインスタンスを作る。
-    all_valuesがすでにソートされている場合はsort_flag=Trueにする。
-    Interfaces:
-        self.insert(x: Any, c=1: Int)
-        self.erase(x: Any, c=1: Int)
-        self.count_lower(x: Any) -> Int
-        self[k: Int] -> Any
-    """
     
-    def __init__(self, all_values, sort_flag=False):
+    def __init__(self,all_values,sort_flag = False):
         if sort_flag:
             self.A = all_values
         else:
@@ -143,22 +140,24 @@ class OrderBIT:
         self.B = BIT(len(all_values))
         self.num = 0
         
-    def insert(self, x, c=1):
-        k = bisect.bisect_left(self.A, x)
-        self.B.update(k, c)
+    def insert(self,x,c=1):
+        k = bisect.bisect_left(self.A,x)
+        self.B.update(k,c)
         self.num += c
     
-    def erase(self, x, c=1):
-        self.insert(x, -c)
+    def erase(self,x,c=1):
+        k = bisect.bisect_left(self.A,x)
+        self.B.update(k,-c)
+        self.num -= c
     
     # count the number of values lower than or equal to x
-    def count_lower(self, x):
+    def count_lower(self,x):
         if x < self.A[0]:
             return 0
-        return self.B.query(bisect.bisect_right(self.A,x) - 1)
+        return self.B.query(bisect.bisect_right(self.A,x)-1)
 
     # find the k-th min_val (k:0-indexed)
-    def __getitem__(self, k):
+    def __getitem__(self,k):
         if self.num <= k:
             ##### MINIMUM VAL #######
             return -10**9
