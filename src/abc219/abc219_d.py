@@ -14,43 +14,22 @@ def main():
     # T = input().split()
     # A = list(map(int, input().split()))
     boxes = [tuple(map(int,input().split())) for _ in range(N)]
-    # boxes.sort(key=lambda x:x[1])
-    boxes.sort(key=lambda x:sum(x))
+    MAX_NUM=999
 
-    buy = []
-    X_sum = 0
-    Y_sum = 0
-    while X_sum < X and Y_sum < Y:
-        if len(boxes) == 0:
-            print(-1)
-            return
-        x, y = boxes.pop()
-        X_sum += x
-        Y_sum += y
-        buy.append((x,y))
-    
-    if X_sum < X:
-        boxes.sort(key=lambda x:x[0])
-        while X_sum < X:
-            if len(boxes) == 0:
-                print(-1)
-                return
-            x, y = boxes.pop()
-            X_sum += x
-            Y_sum += y
-            buy.append((x,y))
-    if Y_sum < Y:
-        boxes.sort(key=lambda x:x[1])
-        while Y_sum < Y:
-            if len(boxes) == 0:
-                print(-1)
-                return
-            x, y = boxes.pop()
-            X_sum += x
-            Y_sum += y
-            buy.append((x,y))
-    
-    print(len(buy))
+    # dp[N][X][Y]
+    dp = [[[MAX_NUM for y in range(Y+1)] for x in range(X+1)] for n in range(N+1)]
+
+    dp[0][0][0] = 0
+    for i in range(N):
+        box = boxes[i]
+        for x in range(X):
+            for y in range(Y):
+                state = dp[i][x][y]
+                # i番目の弁当を買わない場合
+                dp[i+1][x][y] = min(state, dp[i+1][x][y])
+                # i番目の弁当を買う場合
+                dp[i+1][min(X,x+box[0])][min(Y,y+box[1])] = min(state+1, dp[i+1][min(X,x+box[0])][min(Y,y+box[1])])
+    print(dp[N][X][Y] if dp[N][X][Y]!=MAX_NUM else -1)
 
 # =======================================================
 #                       Utilities
