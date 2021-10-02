@@ -4,7 +4,21 @@ https://atcoder.jp/contests/abc219/tasks/abc219_d
 
 import math
 import bisect
+# from pprint import pprint
 from typing import List, Tuple
+
+def pprint(dp):
+    i = 0
+    print(' x:  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30')
+    for row in dp:
+        print(f'{i:2d}: ',end='')
+        for col in row:
+            if col != 999:
+                print(f'{col:2d} ', end='')
+            else:
+                print(f' . ', end='')
+        print()
+        i += 1
 
 def main():
     pass
@@ -22,13 +36,17 @@ def main():
     dp[0][0][0] = 0
     for i in range(N):
         box = boxes[i]
-        for x in range(X):
-            for y in range(Y):
+        for x in range(X+1):
+            for y in range(Y+1):
                 state = dp[i][x][y]
+                if state == MAX_NUM:
+                    continue
                 # i番目の弁当を買わない場合
                 dp[i+1][x][y] = min(state, dp[i+1][x][y])
                 # i番目の弁当を買う場合
-                dp[i+1][min(X,x+box[0])][min(Y,y+box[1])] = min(state+1, dp[i+1][min(X,x+box[0])][min(Y,y+box[1])])
+                next_x = min(X,x+box[0])
+                next_y = min(Y,y+box[1]) 
+                dp[i+1][next_x][next_y] = min(state+1, dp[i+1][next_x][next_y])
     print(dp[N][X][Y] if dp[N][X][Y]!=MAX_NUM else -1)
 
 # =======================================================
