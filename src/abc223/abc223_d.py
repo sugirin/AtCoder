@@ -4,6 +4,11 @@ https://atcoder.jp/contests/abc223/tasks/abc223_d
 
 import math
 import bisect
+from heapq import (
+    heapify, 
+    heappush as hpush,
+    heappop as hpop,
+)
 from typing import List, Tuple
 
 def main():
@@ -13,11 +18,35 @@ def main():
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
-    queries = [tuple(map(int,input().split())) for _ in range(M)]
+    queries = [tuple(map(lambda x:int(x)-1,input().split())) for _ in range(M)]
     queries = set(queries)
 
-    nums = [i for i in range(1,N+1)]
+    n_in = [0 for _ in range(N)]
+    outs = [[] for _ in range(N)]
+    for A, B in queries:
+        outs[A].append(B)
+        n_in[B] += 1
+
+    S = []
+    queue = []
+    heapify(queue)
+    for i, n in enumerate(n_in):
+        if n==0:
+            hpush(queue, i)
     
+    while len(queue) > 0:
+        i = hpop(queue)
+        S.append(i+1)
+        for out in outs[i]:
+            n_in[out] -= 1
+            if n_in[out]==0:
+                hpush(queue, out)
+    
+    if len(S) == N:
+        print(' '.join(map(str, S)))
+    else:
+        print(-1)
+
 
 # =======================================================
 #                       Utilities

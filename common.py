@@ -1,6 +1,11 @@
 
 import math
 import bisect
+from heapq import (
+    heapify, 
+    heappush as hpush,
+    heappop as hpop,
+)
 from typing import List, Tuple
 
 def main():
