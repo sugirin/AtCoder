@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc229/tasks/abc229_f
+"""
 
 import math
 import bisect
@@ -168,31 +171,6 @@ class OrderBIT:
             ##### MINIMUM VAL #######
             return -10**9
         return self.A[self.B.lower_left(k+1)]
-
-class UnionFind:
-    def __init__(self, n:int):
-        self.nodes = [i for i in range(n+1)]
-        self.is_root = [True for i in range(n+1)]
-        self.parent = [i for i in range(n+1)]
-
-    def root(self, x:int) -> int:
-        if self.is_root[x]:
-            return x
-        else:
-            r = self.root(self.parent[x])
-            self.parent[x] = r
-            return r
-    
-    def unite(self, x:int, y:int) -> None:
-        if self.same(x, y):
-            return
-        self.parent[y] = x
-        self.is_root[y] = False
-    
-    def same(self, x:int, y:int) -> bool:
-        if self.root(x) == self.root(y):
-            return True
-        return False
 
 # =======================================================
 #                        End

@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc232/tasks/abc232_d
+"""
 
 import math
 import bisect
@@ -7,16 +10,33 @@ from heapq import (
     heappop as hpop,
 )
 from typing import List, Tuple
+from itertools import chain
 
 def main():
     pass
     # N = int(input())
-    # N, M = map(int, input().split())
+    H, W = map(int, input().split())
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
     # queries = [map(int,input().split()) for _ in range(N)]
+    field = [list(input()) for _ in range(H)]
 
+    dp = [[0 for j in range(W)] for i in range(H)]
+    dp[0][0] = 1
+    for i in range(H):
+        for j in range(W):
+            if field[i][j] == '#':
+                dp[i][j] = -1
+            elif i>0 and dp[i-1][j] != -1:
+                dp[i][j] = dp[i-1][j] + 1
+            elif j>0 and dp[i][j-1] != -1:
+                dp[i][j] = dp[i][j-1] + 1
+            else:
+                if i==0 and j==0:
+                    continue
+                dp[i][j] = -1
+    print(max(chain.from_iterable(dp)))
 
 # =======================================================
 #                       Utilities

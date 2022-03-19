@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc231/tasks/abc231_a
+"""
 
 import math
 import bisect
@@ -10,7 +13,8 @@ from typing import List, Tuple
 
 def main():
     pass
-    # N = int(input())
+    N = int(input())
+    print(N/100)
     # N, M = map(int, input().split())
     # S = input()
     # T = input().split()

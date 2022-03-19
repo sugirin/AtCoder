@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/arc137/tasks/arc137_e
+"""
 
 import math
 import bisect

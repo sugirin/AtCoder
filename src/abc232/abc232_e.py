@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc232/tasks/abc232_e
+"""
 
 import math
 import bisect

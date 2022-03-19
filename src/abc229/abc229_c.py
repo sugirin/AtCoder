@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc229/tasks/abc229_c
+"""
 
 import math
 import bisect
@@ -11,11 +14,26 @@ from typing import List, Tuple
 def main():
     pass
     # N = int(input())
-    # N, M = map(int, input().split())
+    N, W = map(int, input().split())
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
-    # queries = [map(int,input().split()) for _ in range(N)]
+    cheese = [tuple(map(int,input().split())) for _ in range(N)]
+
+    cheese.sort(reverse=True)
+
+    total_weight = 0
+    total_score = 0
+
+    for A, B in cheese:
+        if total_weight + B <= W:
+            total_score += A*B
+            total_weight += B
+        else:
+            B_ = W - total_weight
+            total_score += A*B_
+            break
+    print(total_score)
 
 
 # =======================================================
@@ -168,31 +186,6 @@ class OrderBIT:
             ##### MINIMUM VAL #######
             return -10**9
         return self.A[self.B.lower_left(k+1)]
-
-class UnionFind:
-    def __init__(self, n:int):
-        self.nodes = [i for i in range(n+1)]
-        self.is_root = [True for i in range(n+1)]
-        self.parent = [i for i in range(n+1)]
-
-    def root(self, x:int) -> int:
-        if self.is_root[x]:
-            return x
-        else:
-            r = self.root(self.parent[x])
-            self.parent[x] = r
-            return r
-    
-    def unite(self, x:int, y:int) -> None:
-        if self.same(x, y):
-            return
-        self.parent[y] = x
-        self.is_root[y] = False
-    
-    def same(self, x:int, y:int) -> bool:
-        if self.root(x) == self.root(y):
-            return True
-        return False
 
 # =======================================================
 #                        End

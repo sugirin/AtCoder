@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc232/tasks/abc232_b
+"""
 
 import math
 import bisect
@@ -12,11 +15,25 @@ def main():
     pass
     # N = int(input())
     # N, M = map(int, input().split())
-    # S = input()
+    S = input()
+    T = input()
     # T = input().split()
     # A = list(map(int, input().split()))
     # queries = [map(int,input().split()) for _ in range(N)]
-
+    diff = ord(T[0]) - ord(S[0])
+    offset = ord('a')
+    new_S = []
+    for s in S:
+        new_s = ord(s) - offset + diff
+        if new_s < 0:
+            new_s += 26
+        elif new_s > 25:
+            new_s -= 26
+        new_S.append(chr(new_s+offset))
+    if T == ''.join(new_S):
+        print('Yes')
+    else:
+        print('No')
 
 # =======================================================
 #                       Utilities

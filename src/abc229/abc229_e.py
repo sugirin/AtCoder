@@ -1,26 +1,70 @@
+"""
+https://atcoder.jp/contests/abc229/tasks/abc229_e
+"""
 
 import math
 import bisect
+from collections import defaultdict as ddict
 from heapq import (
     heapify, 
     heappush as hpush,
     heappop as hpop,
 )
-from typing import List, Tuple
+from typing import DefaultDict, List, Tuple
 
 def main():
     pass
     # N = int(input())
-    # N, M = map(int, input().split())
+    N, M = map(int, input().split())
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
-    # queries = [map(int,input().split()) for _ in range(N)]
+    queries = [map(int,input().split()) for _ in range(M)]
+    UF = UnionFind(N)
+    edges = ddict(list)
+    for a, b in queries:
+        edges[a].append(b)
 
+    ans = []    
+    ans.append(0)
+    ans.append(1)
+    for n in range(N-1, 1, -1):
+        for e in edges[n]:
+            UF.unite(n, e)
+        groups = sum(UF.is_root[n:])
+        ans.append(groups)
+
+    for a in ans[::-1]:
+        print(a)
 
 # =======================================================
 #                       Utilities
 # =======================================================
+class UnionFind:
+    def __init__(self, n:int):
+        self.is_root = [True for i in range(n+1)]
+        self.parent = [i for i in range(n+1)]
+
+    def root(self, x:int) -> int:
+        if self.is_root[x]:
+            return x
+        else:
+            rx = self.root(self.parent[x])
+            self.parent[x] = rx
+            return rx
+    
+    def unite(self, x:int, y:int) -> None:
+        if self.same(x, y):
+            return
+        rx = self.root(x)
+        self.is_root[rx] = False
+        self.parent[rx] = self.root(y)
+    
+    def same(self, x:int, y:int) -> bool:
+        if self.root(x) == self.root(y):
+            return True
+        return False
+
 def sieve_of_eratosthenes(N: int) -> List[bool]:
     """エラトステネスの篩。
 
@@ -168,31 +212,6 @@ class OrderBIT:
             ##### MINIMUM VAL #######
             return -10**9
         return self.A[self.B.lower_left(k+1)]
-
-class UnionFind:
-    def __init__(self, n:int):
-        self.nodes = [i for i in range(n+1)]
-        self.is_root = [True for i in range(n+1)]
-        self.parent = [i for i in range(n+1)]
-
-    def root(self, x:int) -> int:
-        if self.is_root[x]:
-            return x
-        else:
-            r = self.root(self.parent[x])
-            self.parent[x] = r
-            return r
-    
-    def unite(self, x:int, y:int) -> None:
-        if self.same(x, y):
-            return
-        self.parent[y] = x
-        self.is_root[y] = False
-    
-    def same(self, x:int, y:int) -> bool:
-        if self.root(x) == self.root(y):
-            return True
-        return False
 
 # =======================================================
 #                        End

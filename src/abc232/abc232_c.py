@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc232/tasks/abc232_c
+"""
 
 import math
 import bisect
@@ -7,15 +10,30 @@ from heapq import (
     heappop as hpop,
 )
 from typing import List, Tuple
+from itertools import permutations
 
 def main():
     pass
     # N = int(input())
-    # N, M = map(int, input().split())
+    N, M = map(int, input().split())
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
-    # queries = [map(int,input().split()) for _ in range(N)]
+    himo_t = set([tuple(map(int,input().split())) for _ in range(M)])
+    himo_s = set([tuple(map(int,input().split())) for _ in range(M)])
+    tama_t = list(range(1,N+1))
+    for tama_s in permutations(tama_t):
+        for c, d in himo_s:
+            p = tama_s[c-1]
+            q = tama_s[d-1]
+            if p > q:
+                p, q = q, p
+            if (p,q) not in himo_t:
+                break
+        else:
+            print('Yes')
+            return
+    print('No')
 
 
 # =======================================================

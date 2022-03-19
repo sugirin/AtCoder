@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc232/tasks/abc232_a
+"""
 
 import math
 import bisect
@@ -11,7 +14,8 @@ from typing import List, Tuple
 def main():
     pass
     # N = int(input())
-    # N, M = map(int, input().split())
+    N, M = map(int, input().split('x'))
+    print(N*M)
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))

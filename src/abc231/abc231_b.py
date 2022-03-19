@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc231/tasks/abc231_b
+"""
 
 import math
 import bisect
@@ -10,13 +13,17 @@ from typing import List, Tuple
 
 def main():
     pass
-    # N = int(input())
+    N = int(input())
     # N, M = map(int, input().split())
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
     # queries = [map(int,input().split()) for _ in range(N)]
-
+    S = [input() for i in range(N)]
+    from collections import Counter
+    C = Counter(S)
+    ans = max(C.items(),key=lambda x:x[1])[0]
+    print(ans)
 
 # =======================================================
 #                       Utilities

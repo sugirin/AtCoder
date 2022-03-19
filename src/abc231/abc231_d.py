@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc231/tasks/abc231_d
+"""
 
 import math
 import bisect
@@ -7,15 +10,49 @@ from heapq import (
     heappop as hpop,
 )
 from typing import List, Tuple
+from collections import deque
 
 def main():
     pass
     # N = int(input())
-    # N, M = map(int, input().split())
+    N, M = map(int, input().split())
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
-    # queries = [map(int,input().split()) for _ in range(N)]
+    queries = [map(int,input().split()) for _ in range(M)]
+    L = [0 for _ in range(N+1)]
+    E = {i:[] for i in range(N+1)}
+    for a,b in queries:
+        L[a] += 1
+        L[b] += 1
+        E[a].append(b)
+        E[b].append(a)
+    if max(L)>2 or min(L[1:])>1:
+        print('No')
+        return
+    finished = set()
+    Q = deque()
+    for i in range(1, N+1):
+        if L[i] == 0 or i in finished:
+            continue
+        Q.append(i)
+        pre = set()
+        pre.add(i)
+        post = set()
+        while len(Q)>0:
+            x = Q.pop()
+            pre.remove(x)
+            for e in E[x]:
+                if e in post:
+                    continue
+                if e in pre:
+                    print('No')
+                    return
+                pre.add(e)
+                Q.append(e)
+            post.add(x)
+        finished |= post
+    print('Yes')
 
 
 # =======================================================
