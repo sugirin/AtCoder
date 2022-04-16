@@ -10,16 +10,43 @@ from heapq import (
     heappop as hpop,
 )
 from typing import List, Tuple
+from itertools import accumulate
+
+def sign(x):
+    return int(math.copysign(1, x))
+
+def reconstract(A):
+    B = []
+    t = A[0]
+    s = sign(t)
+    for a in A[1:]:
+        if s == sign(a):
+            t += a
+        else:
+            B.append(t)
+            t = a
+            s = sign(a)
+    B.append(t)
+    return B
 
 def main():
     pass
-    # N = int(input())
+    N = int(input())
     # N, M = map(int, input().split())
     # S = input()
     # T = input().split()
-    # A = list(map(int, input().split()))
+    A = list(map(int, input().split()))
     # queries = [map(int,input().split()) for _ in range(N)]
+    Ac = accumulate([0]+[1 if a==0 else -1 for a in A])
+    mn = mx = 0
+    ub = lb = 0
+    for a in Ac:
+        ub = max(ub, a-mn)
+        lb = min(lb, a-mx)
+        mn = min(mn, a)
+        mx = max(mx, a)
 
+    print(ub - lb + 1)
 
 # =======================================================
 #                       Utilities

@@ -59,7 +59,7 @@ def factorization(x: int) -> List[Tuple[int, int]]:
         x (int): 素因数分解する整数
 
     Returns:
-        List[Tuple[int, int]]: x = p1^q1 + p2^q2 + ... の時、 [(p1, q1), (p2, q2), ...] のlist
+        List[Tuple[int, int]]: x = p1^q1 * p2^q2 * ... の時、 [(p1, q1), (p2, q2), ...] のlist
     
     Doctest:
         >>> factorization(24)

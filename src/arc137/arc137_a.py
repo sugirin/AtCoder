@@ -14,12 +14,20 @@ from typing import List, Tuple
 def main():
     pass
     # N = int(input())
-    # N, M = map(int, input().split())
+    L, R = map(int, input().split())
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
     # queries = [map(int,input().split()) for _ in range(N)]
-
+    max_diff = 0
+    for x in range(L, R):
+        for y in range(R, L, -1):
+            if math.gcd(x, y) == 1:
+                max_diff = max(max_diff, y-x)
+                break
+        if R-x < max_diff:
+            break
+    print(max_diff)
 
 # =======================================================
 #                       Utilities
