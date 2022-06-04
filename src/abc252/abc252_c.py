@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc252/tasks/abc252_c
+"""
 
 import math
 import bisect
@@ -7,17 +10,25 @@ from heapq import (
     heappop as hpop,
 )
 from typing import List, Tuple
-from itertools import combinations, permutations
-
 
 def main():
     pass
-    # N = int(input())
+    N = int(input())
     # N, M = map(int, input().split())
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
-    # queries = [map(int,input().split()) for _ in range(N)]
+    S = [list(map(int,list(input()))) for _ in range(N)]
+    best = 10**3
+    for i in range(10):
+        ts = [0 for _ in range(10)]
+        for s in S:
+            t = s.index(i)
+            ts[t] += 1
+        round = max(ts)-1
+        time = 10*round + 9-ts[::-1].index(max(ts))
+        best = min(best, time)
+    print(best)
 
 
 # =======================================================

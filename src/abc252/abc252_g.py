@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc252/tasks/abc252_g
+"""
 
 import math
 import bisect
@@ -7,8 +10,6 @@ from heapq import (
     heappop as hpop,
 )
 from typing import List, Tuple
-from itertools import combinations, permutations
-
 
 def main():
     pass

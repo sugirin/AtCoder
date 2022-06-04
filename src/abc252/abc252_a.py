@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc252/tasks/abc252_a
+"""
 
 import math
 import bisect
@@ -7,18 +10,16 @@ from heapq import (
     heappop as hpop,
 )
 from typing import List, Tuple
-from itertools import combinations, permutations
-
 
 def main():
     pass
-    # N = int(input())
+    N = int(input())
     # N, M = map(int, input().split())
     # S = input()
     # T = input().split()
     # A = list(map(int, input().split()))
     # queries = [map(int,input().split()) for _ in range(N)]
-
+    print(chr(N))
 
 # =======================================================
 #                       Utilities

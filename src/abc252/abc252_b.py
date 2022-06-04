@@ -1,4 +1,8 @@
+"""
+https://atcoder.jp/contests/abc252/tasks/abc252_b
+"""
 
+import enum
 import math
 import bisect
 from heapq import (
@@ -6,19 +10,24 @@ from heapq import (
     heappush as hpush,
     heappop as hpop,
 )
+from operator import index
 from typing import List, Tuple
-from itertools import combinations, permutations
-
 
 def main():
     pass
     # N = int(input())
-    # N, M = map(int, input().split())
+    N, K = map(int, input().split())
     # S = input()
     # T = input().split()
-    # A = list(map(int, input().split()))
+    A = list(map(int, input().split()))
+    B = list(map(int, input().split()))
     # queries = [map(int,input().split()) for _ in range(N)]
-
+    a_max = max(A)
+    for b in B:
+        if A[b-1]==a_max:
+            print('Yes')
+            return
+    print('No')
 
 # =======================================================
 #                       Utilities

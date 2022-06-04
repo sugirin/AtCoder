@@ -1,3 +1,6 @@
+"""
+https://atcoder.jp/contests/abc252/tasks/abc252_d
+"""
 
 import math
 import bisect
@@ -7,18 +10,30 @@ from heapq import (
     heappop as hpop,
 )
 from typing import List, Tuple
-from itertools import combinations, permutations
-
+from collections import Counter
+from copy import deepcopy
 
 def main():
     pass
-    # N = int(input())
+    N = int(input())
     # N, M = map(int, input().split())
     # S = input()
     # T = input().split()
-    # A = list(map(int, input().split()))
+    A = list(map(int, input().split()))
     # queries = [map(int,input().split()) for _ in range(N)]
-
+    cnt = Counter(A)
+    ans = 0
+    for i in range(N-2):
+        ai = A[i]
+        cnt[ai] -= 1
+        done_cnt = Counter()
+        for j in range(i+1,N-1):
+            aj = A[j]
+            done_cnt[aj] += 1
+            if aj==ai:
+                continue
+            ans += N - (j+1) - cnt[ai] - (cnt[aj] - done_cnt[aj])
+    print(ans)
 
 # =======================================================
 #                       Utilities
